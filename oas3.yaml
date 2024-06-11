@@ -296,26 +296,6 @@ paths:
       responses:
         '204':
           description: Successo, lista cancellata
-  # /users/me:
-  #   get:
-  #     summary: Ottieni le informazioni dell'utente corrente
-  #     description: Ottiene le informazioni dell'utente corrente.
-  #     tags:
-  #       - User
-  #     responses:
-  #       '200':
-  #         description: Successo, restituisce le informazioni dell'utente corrente
-  #         content:
-  #           application/json:
-  #             schema:
-  #               type: object
-  #               properties:
-  #                 self:
-  #                   type: string
-  #                   description: Link all'utente corrente
-  #                 email:
-  #                   type: string
-  #                   description: Indirizzo email dell'utente corrente
   /users:
     get:
       summary: Ottieni tutti gli utenti
