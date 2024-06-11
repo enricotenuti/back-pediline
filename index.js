@@ -2,7 +2,7 @@ const app = require('./backend/server.js');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv').config();
 
-const port = 3000;
+const port = 10000;
 
 
 
