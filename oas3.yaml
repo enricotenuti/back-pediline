@@ -1,0 +1,530 @@
+openapi: 3.0.0
+info:
+  version: '1.0'
+  title: "Pediline API 3.0"
+  description: API per la gestione del servizio di pedibus.
+  license:
+    name: MIT
+servers:
+  - url: https://back-pediline.onrender.com/api/v1
+    description: Backend server
+paths:
+  /lines:
+    get:
+      summary: Ottieni tutte le linee
+      description: Ottieni tutte le linee disponibili nel sistema.
+      tags: 
+        - Line
+      responses:
+        '200':
+          description: Successo, restituisce tutte le linee
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Line'
+    post:
+      summary: Crea una nuova linea
+      description: Crea una nuova linea nel sistema.
+      tags: 
+        - Line
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Line'
+      responses:
+        '201':
+          description: Successo, linea creata
+  /lines/{id}:
+    get:
+      summary: Ottieni una linea per ID
+      description: Ottieni una linea specifica per ID.
+      tags: 
+        - Line
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID della linea da ottenere
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successo, restituisce la linea specificata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Line'
+    put:
+      summary: Aggiorna una linea per ID
+      description: Aggiorna una linea specifica per ID.
+      tags: 
+        - Line
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID della linea da aggiornare
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Line'
+      responses:
+        '200':
+          description: Successo, restituisce la linea aggiornata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Line'
+    delete:
+      summary: Cancella una linea per ID
+      description: Cancella una linea specifica per ID.
+      tags: 
+        - Line
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID della linea da cancellare
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Successo, linea cancellata
+  /stops:
+    get:
+      summary: Ottieni tutte le fermate
+      description: Ottieni tutte le fermate disponibili nel sistema.
+      tags: 
+        - Stop
+      parameters:
+        - in: query
+          name: lineId
+          schema:
+            type: string
+          description: Filtra gli stop per Id della linea
+      responses:
+        '200':
+          description: Successo, restituisce tutte le fermate
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Stop'
+    post:
+      summary: Crea una nuova fermata
+      description: Crea una nuova fermata nel sistema.
+      tags: 
+        - Stop
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Stop'
+      responses:
+        '201':
+          description: Successo, fermata creata
+  /stops/{id}:
+    get:
+      summary: Ottieni una fermata per ID
+      description: Ottieni una fermata specifica per ID.
+      tags: 
+        - Stop
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID della fermata da ottenere
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successo, restituisce la fermata specificata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Stop'
+    delete:
+      summary: Cancella una fermata per ID
+      description: Cancella una fermata specifica per ID.
+      tags: 
+        - Stop
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID della fermata da cancellare
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Successo, fermata cancellata
+  /calendars:
+    get:
+      summary: Ottieni tutti i calendari
+      description: Ottieni tutti i calendari disponibili nel sistema.
+      tags: 
+        - Calendar
+      responses:
+        '200':
+          description: Successo, restituisce tutti i calendari
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Calendar'
+    post:
+      summary: Crea un nuovo calendario
+      description: Crea un nuovo calendario nel sistema.
+      tags: 
+        - Calendar
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Calendar'
+      responses:
+        '201':
+          description: Successo, calendario creato
+  /calendars/{id}:
+    get:
+      summary: Ottieni un calendario per ID
+      description: Ottieni un calendario specifico per ID.
+      tags: 
+        - Calendar
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID del calendario da ottenere
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successo, restituisce il calendario specificato
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Calendar'
+    delete:
+      summary: Cancella un calendario per ID
+      description: Cancella un calendario specifico per ID.
+      tags: 
+        - Calendar
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID del calendario da cancellare
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Successo, calendario cancellato
+  /lists:
+    get:
+      summary: Ottieni tutte le liste
+      description: Ottieni tutte le liste disponibili nel sistema.
+      tags: 
+        - List
+      responses:
+        '200':
+          description: Successo, restituisce tutte le liste
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/List'
+    post:
+      summary: Crea una nuova lista
+      description: Crea una nuova lista nel sistema.
+      tags: 
+        - List
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/List'
+      responses:
+        '201':
+          description: Successo, lista creata
+  /lists/{id}:
+    get:
+      summary: Ottieni una lista per ID
+      description: Ottieni una lista specifica per ID.
+      tags: 
+        - List
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID della lista da ottenere
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successo, restituisce la lista specificata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/List'
+    delete:
+      summary: Cancella una lista per ID
+      description: Cancella una lista specifica per ID.
+      tags: 
+        - List
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID della lista da cancellare
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Successo, lista cancellata
+  # /users/me:
+  #   get:
+  #     summary: Ottieni le informazioni dell'utente corrente
+  #     description: Ottiene le informazioni dell'utente corrente.
+  #     tags:
+  #       - User
+  #     responses:
+  #       '200':
+  #         description: Successo, restituisce le informazioni dell'utente corrente
+  #         content:
+  #           application/json:
+  #             schema:
+  #               type: object
+  #               properties:
+  #                 self:
+  #                   type: string
+  #                   description: Link all'utente corrente
+  #                 email:
+  #                   type: string
+  #                   description: Indirizzo email dell'utente corrente
+  /users:
+    get:
+      summary: Ottieni tutti gli utenti
+      description: Ottiene tutti gli utenti nel sistema.
+      tags:
+        - User
+      parameters:
+        - in: query
+          name: email
+          schema:
+            type: string
+          description: Filtra gli utenti per email
+      responses:
+        '200':
+          description: Successo, restituisce tutti gli utenti
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+    post:
+      summary: Crea un nuovo utente
+      description: Crea un nuovo utente nel sistema.
+      tags: 
+        - User
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          description: Successo, utente creato
+  /users/{id}:
+    get:
+      summary: Ottieni un utente per ID
+      description: Ottieni un utente specifico per ID.
+      tags: 
+        - User
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID dell'utente da ottenere
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successo, restituisce l'utente specificato
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+    put:
+      summary: Aggiorna un utente per ID
+      description: Aggiorna un utente specifica per ID.
+      tags: 
+        - User
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID dell'utente da aggiornare
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+    delete:
+      summary: Cancella un utente per ID
+      description: Cancella un utente specifico per ID.
+      tags: 
+        - User
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID dell'utente da cancellare
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Successo, utente cancellato
+components:
+  schemas:
+    Line:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          description: Nome della linea
+        color:
+          type: string
+          description: Colore della linea
+        stops:
+          type: array
+          items:
+            type: mongoose.Schema.Types.ObjectId
+          description: Array di fermate associate alla linea
+      example:
+        name: "Linea 1"
+        color: "verde"
+        stops: ["6111e92ecf77c812a056d3d2", "6111e92ecf77c812a056d3d3"]
+    Stop:
+      type: object
+      required:
+        - name
+        - schedule
+        - position
+        - line
+      properties:
+        name:
+          type: string
+          description: Nome della fermata
+        schedule:
+          type: string
+          description: Orario della fermata
+        position:
+          type: array
+          items:
+            type: number
+          description: Posizione geografica della fermata
+        line:
+          type: mongoose.Schema.Types.ObjectId
+          description: Id della linea associata alla fermata
+      example:
+        name: "Fermata 1"
+        schedule: "08:00"
+        position: [40.7128, -74.0060]
+        line: "6111e92ecf77c812a056d3d2"
+    Calendar:
+      type: object
+      required:
+        - listePresenze
+        - bacheca
+      properties:
+        listePresenze:
+          type: array
+          items:
+            type: string
+          description: Array di eventi nel calendario
+        bacheca:
+          type: string
+          format: uuid
+          description: Id del documento Bacheca associato al calendario
+      example:
+        listePresenze: ["evento1", "evento2"]
+        bacheca: "6111e92ecf77c812a056d3d2"
+    List:
+      type: object
+      required:
+        - day
+        - leaders
+        - studentsPresent
+        - studentsAbsent
+      properties:
+        day:
+          type: string
+          description: Giorno della lista
+        leaders:
+          type: array
+          items:
+            type: string
+          description: Array di leader della lista
+        studentsPresent:
+          type: array
+          items:
+            type: string
+          description: Array di studenti presenti nella lista
+        studentsAbsent:
+          type: array
+          items:
+            type: string
+          description: Array di studenti assenti nella lista
+      example:
+        day: "2024-05-12"
+        leaders: ["leader1", "leader2"]
+        studentsPresent: ["student1", "student2"]
+        studentsAbsent: ["student3", "student4"]
+    User:
+      type: object
+      required:
+        - email
+        - password
+        - role
+      properties:
+        email:
+          type: string
+          description: Indirizzo email dell'utente
+        password:
+          type: string
+          description: Password dell'utente
+        role:
+          type: string
+          description: Ruolo dell'utente
+        line:
+          type: mongoose.Schema.Types.ObjectId
+          description: Id della linea associata all'utente
+        stop:
+          type: mongoose.Schema.Types.ObjectId
+          description: Id della fermata associata all'utente
+      example:
+        email: "alice@example.com"
+        password: "password1"
+        role: "admin"
+        line: "6111e92ecf77c812a056d3d2"
+        stop: "6111e92ecf77c812a056d3d3"

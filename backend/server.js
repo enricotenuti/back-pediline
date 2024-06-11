@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser');
 const path = require('path');
 
 app.use(cors({
-    origin: 'http://localhost:10000',
+    origin: 'http://localhost:3000',
     credentials: true
 }));
 app.use(cookieParser());
