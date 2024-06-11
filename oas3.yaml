@@ -382,6 +382,159 @@ paths:
       responses:
         '204':
           description: Successo, utente cancellato
+  /alerts:
+    get:
+      summary: Ottieni tutti gli avvisi
+      description: Ottieni tutti gli avvisi disponibili nel sistema.
+      tags: 
+        - Alert
+      responses:
+        '200':
+          description: Successo, restituisce tutti gli avvisi
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Alert'
+    post:
+      summary: Crea un nuovo avviso
+      description: Crea un nuovo avviso nel sistema.
+      tags: 
+        - Alert
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Alert'
+      responses:
+        '201':
+          description: Successo, avviso creato
+  /alerts/{id}:
+    get:
+      summary: Ottieni un avviso per ID
+      description: Ottieni un avviso specifico per ID.
+      tags: 
+        - Alert
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID dell'avviso da ottenere
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successo, restituisce l'avviso specificato
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Alert'
+    delete:
+      summary: Cancella un avviso per ID
+      description: Cancella un avviso specifico per ID.
+      tags: 
+        - Alert
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID dell'avviso da cancellare
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Successo, avviso cancellato
+  /schools:
+    get:
+      summary: Ottieni tutte le scuole
+      description: Ottieni tutte le scuole disponibili nel sistema.
+      tags: 
+        - School
+      responses:
+        '200':
+          description: Successo, restituisce tutte le scuole
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/School'
+    post:
+      summary: Crea una nuova scuola
+      description: Crea una nuova scuola nel sistema.
+      tags: 
+        - School
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/School'
+      responses:
+        '201':
+          description: Successo, scuola creata
+  /schools/{id}:
+    get:
+      summary: Ottieni una scuola per ID
+      description: Ottieni una scuola specifica per ID.
+      tags: 
+        - School
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID della scuola da ottenere
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successo, restituisce la scuola specificata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/School'
+    put:
+      summary: Aggiorna una scuola per ID
+      description: Aggiorna una scuola specifica per ID.
+      tags: 
+        - School
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID della scuola da aggiornare
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/School'
+      responses:
+        '200':
+          description: Successo, restituisce la scuola aggiornata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/School'
+    delete:
+      summary: Cancella una scuola per ID
+      description: Cancella una scuola specifica per ID.
+      tags: 
+        - School
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID della scuola da cancellare
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Successo, scuola cancellata
 components:
   schemas:
     Line:
@@ -508,3 +661,50 @@ components:
         role: "admin"
         line: "6111e92ecf77c812a056d3d2"
         stop: "6111e92ecf77c812a056d3d3"
+    Alert:
+      type: object
+      required:
+        - title
+        - description
+        - date
+        - author
+      properties:
+        title:
+          type: string
+          description: Titolo dell'avviso
+        description:
+          type: string
+          description: Descrizione dell'avviso
+        date:
+          type: string
+          description: Data dell'avviso
+        author:
+          type: string
+          description: Autore dell'avviso
+      example:
+        title: "Avviso importante"
+        description: "Questo è un avviso importante per tutti gli utenti."
+        date: "2024-06-11"
+        author: "Admin"
+    School:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          description: Nome della scuola
+        linesId:
+          type: array
+          items:
+            type: string
+          description: Array di ID delle linee associate alla scuola
+        position:
+          type: array
+          items:
+            type: number
+          description: Posizione geografica della scuola
+      example:
+        name: "Scuola Primaria"
+        linesId: ["linea1", "linea2"]
+        position: [45.4642, 9.1900]

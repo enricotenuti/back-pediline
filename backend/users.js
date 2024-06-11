@@ -1,8 +1,23 @@
 const express = require('express');
 const router = express.Router();
 const User = require('./models/user'); // get our mongoose model
+const school = require('./models/school');
 
 
+
+// router.get('/me', async (req, res) => {
+//     if(!req.loggedUser) {
+//         return;
+//     }
+
+//     // https://mongoosejs.com/docs/api.html#model_Model.find
+//     let user = await User.findOne({email: req.loggedUser.email});
+
+//     res.status(200).json({
+//         self: '/api/v1/users/' + user.id,
+//         email: user.email
+//     });
+// });
 
 router.get('', async (req, res) => {
     let users;
