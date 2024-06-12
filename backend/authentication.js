@@ -3,7 +3,6 @@ const router = express.Router();
 const User = require('./models/user'); // get our mongoose model
 const jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
 
-
 // ---------------------------------------------------------
 // route to authenticate and get a new token
 // ---------------------------------------------------------
@@ -37,7 +36,6 @@ router.post('', async function(req, res) {
 		expiresIn: 86400 // expires in 24 hours
 	}
 	var token = jwt.sign(payload, process.env.SUPER_SECRET, options);
-    res.cookie('jwt', token, { httpOnly: true, secure: true, maxAge: 3600000 }); 
 
 	res.json({
 		success: true,
@@ -49,9 +47,6 @@ router.post('', async function(req, res) {
 		id: user._id,
 		self: "api/v1/" + user._id
 	});
-
-
 });
-
 
 module.exports = router;

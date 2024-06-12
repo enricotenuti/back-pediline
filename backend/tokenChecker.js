@@ -6,7 +6,7 @@ let invalidatedTokens = []; // Lista dei token invalidati
 
 // Middleware per verificare il token
 const tokenChecker = function(req, res, next) {
-    var token = req.cookies.jwt;
+    var token = req.headers['authorization'];
 
     if (!token) {
         return res.status(201).json({ 
@@ -41,20 +41,17 @@ router.get('', tokenChecker, (req, res) => {
     res.status(200).json({
         success: true,
         loggedUser: req.loggedUser,
-		token: req.cookies.jwt
+		token: req.headers['authorization']
     });
 });
 
 // Route per il logout
 router.post('/logout', (req, res) => {
-    var token = req.cookies.jwt;
+    var token = req.headers['authorization'];
 
     if (token) {
         // Aggiungi il token alla lista degli invalidati
         invalidatedTokens.push(token);
-
-        // Rimuovi il cookie dal client
-        res.cookie('jwt', '', { maxAge: 0 });
 
         res.status(200).json({ 
             success: true,
